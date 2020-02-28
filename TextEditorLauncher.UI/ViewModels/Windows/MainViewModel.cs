@@ -18,10 +18,12 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
 
         public MainViewModel()
         {
-            Icons = new ObservableCollection<IconViewModel>();
-            Icons.Add(new IconViewModel() { IsOpened = false, FilePath = Path.Combine(Environment.CurrentDirectory, "a.txt") });
-            Icons.Add(new IconViewModel() { IsOpened = false, FilePath = Path.Combine(Environment.CurrentDirectory, "b.txt") });
-            Icons.Add(new IconViewModel() { IsOpened = false, FilePath = Path.Combine(Environment.CurrentDirectory, "c.txt") });
+            Icons = new ObservableCollection<IconViewModel>()
+            {
+                new IconViewModel() { IsOpened = false, FilePath = Path.Combine(Environment.CurrentDirectory, "a.txt") },
+                new IconViewModel() { IsOpened = false, FilePath = Path.Combine(Environment.CurrentDirectory, "b.txt") },
+                new IconViewModel() { IsOpened = false, FilePath = Path.Combine(Environment.CurrentDirectory, "c.txt") }
+            };
         }
 
         public ObservableCollection<IconViewModel> Icons
