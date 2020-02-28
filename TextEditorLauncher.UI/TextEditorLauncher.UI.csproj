@@ -59,7 +59,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainView.xaml">
+    <Page Include="Views\Windows\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -68,12 +68,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Log\Logger.cs" />
-    <Compile Include="ViewModels\IconViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Controls\IconViewModel.cs" />
+    <Compile Include="ViewModels\Windows\MainViewModel.cs" />
     <Compile Include="Views\Controls\IconView.xaml.cs">
       <DependentUpon>IconView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
+    <Compile Include="Views\Windows\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -104,11 +104,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Controls\" />
-    <Folder Include="ViewModels\Windows\" />
-    <Folder Include="Views\Windows\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\WPF.UI\WPF.UI.csproj">
       <Project>{a69bb663-4e54-47be-86d9-1a8d8a2ca9cc}</Project>

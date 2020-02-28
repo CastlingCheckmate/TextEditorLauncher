@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:WPF.UI.Converters;assembly=WPF.UI"
              mc:Ignorable="d" >
     <Border BorderBrush="Black"
             BorderThickness="1">
@@ -41,7 +42,7 @@
                         Width="15"
                         Height="15"
                         Margin="3,0,0,0"
-                        Command="{Binding CloseTextEditorCommand}">
+                        Command="{Binding KillProcessCommand}">
                     <Button.Content>
                         <Grid>
                             <Path Fill="Red">
@@ -76,6 +77,7 @@
             </Grid>
             <Button Margin="2"
                     Content="Launch text editor"
+                    IsEnabled="{Binding IsOpened, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:ConvertersHost.BoolToInvertedBoolConverter}}"
                     Command="{Binding LaunchTextEditorCommand}" />
         </StackPanel>
     </Border>

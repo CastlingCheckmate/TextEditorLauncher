@@ -1,25 +1,23 @@
-﻿<Window x:Class="TextEditorLauncher.UI.Views.MainView"
+﻿<Window x:Class="TextEditorLauncher.UI.Views.Windows.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:TextEditorLauncher.UI.ViewModels"
+        xmlns:windowsViewModels="clr-namespace:TextEditorLauncher.UI.ViewModels.Windows"
         xmlns:controls="clr-namespace:TextEditorLauncher.UI.Views.Controls"
         mc:Ignorable="d"
-        Title="Text editor launcher">
+        Title="Text editor launcher"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        MinWidth="200"
+        MaxWidth="500">
     <Window.DataContext>
-        <viewModels:MainViewModel />
+        <windowsViewModels:MainViewModel />
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <ItemsControl ItemsSource="{Binding Icons}">
+    <StackPanel Orientation="Vertical">
+        <ItemsControl ItemsSource="{Binding Icons}"
+                      Margin="3">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />
@@ -27,13 +25,12 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <controls:IconView />
+                    <controls:IconView Margin="0,0,3,0" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Grid.Row="0"
-                Grid.Column="1"
-                Width="100"
-                Command="{Binding Rand}" />
-    </Grid>
+        <Button Content="+"
+                Margin="3"
+                Command="{Binding AddNewIconCommand}" />
+    </StackPanel>
 </Window>
