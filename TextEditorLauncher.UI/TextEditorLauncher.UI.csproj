@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\Controls\IconView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,7 +67,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="ViewModels\IconViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\Controls\IconView.xaml.cs">
+      <DependentUpon>IconView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -95,6 +104,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModels\Controls\" />
+    <Folder Include="ViewModels\Windows\" />
+    <Folder Include="Views\Windows\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WPF.UI\WPF.UI.csproj">
+      <Project>{a69bb663-4e54-47be-86d9-1a8d8a2ca9cc}</Project>
+      <Name>WPF.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
