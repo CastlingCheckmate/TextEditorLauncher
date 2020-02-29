@@ -8,15 +8,17 @@ namespace TextEditorLauncher.UI.Log
     {
 
         private static Lazy<Logger> _instance;
-        private object _syncObject = new object();
 
         static Logger()
         {
-            _instance = new Lazy<Logger>(() => new Logger(Path.Combine(Environment.CurrentDirectory, "TextEditorLauncher.Log.txt")));
+            _instance = new Lazy<Logger>(() => new Logger(Path.Combine(Environment.CurrentDirectory, LogFileName)));
         }
 
         public static Logger Instance =>
             _instance.Value;
+
+        public static string LogFileName =>
+            "TextEditorLauncher.Log.txt";
 
         private Logger(string logFilePath)
         {
@@ -28,6 +30,7 @@ namespace TextEditorLauncher.UI.Log
             };
         }
 
+        private object _syncObject = new object();
         private StreamWriter _logFileWriter;
 
         public Logger Log(Severity severity, string message)
@@ -35,14 +38,14 @@ namespace TextEditorLauncher.UI.Log
             lock (_syncObject)
             {
                 _logFileWriter.WriteLine($"{severity.ToString()} [{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")}]: {message}");
-                _logFileWriter.Flush();
             }
             return this;
         }
 
-        public void Flush()
+        public Logger Flush()
         {
             _logFileWriter.Flush();
+            return this;
         }
 
         public void Dispose()

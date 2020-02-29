@@ -15,11 +15,26 @@
     <Window.DataContext>
         <windowsViewModels:MainViewModel />
     </Window.DataContext>
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical"
+                Margin="3">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Content="Select text editor..."
+                    Margin="0,0,3,0"
+                    Command="{Binding SelectTextEditorCommand}" />
+            <Button Grid.Column="1"
+                    Content="About..."
+                    Command="{Binding AboutCommand}" />
+        </Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Disabled">
+                      VerticalScrollBarVisibility="Disabled"
+                      Margin="0,3,0,0">
             <ItemsControl ItemsSource="{Binding Icons}"
-                          Margin="3">
+                          Margin="0,0,0,3">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -33,7 +48,7 @@
             </ItemsControl>
         </ScrollViewer>
         <Button Content="+"
-                Margin="3"
+                Margin="0,3,0,0"
                 Command="{Binding AddNewIconCommand}" />
     </StackPanel>
 </Window>

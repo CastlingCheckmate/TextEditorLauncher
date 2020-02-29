@@ -4,7 +4,67 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:WPF.UI.Converters;assembly=WPF.UI"
-             mc:Ignorable="d" >
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="IsPathEnabled"
+                   TargetType="Path">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled"
+                             Value="False">
+                        <Setter Property="Opacity"
+                                Value="0.25" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="BackgroundPath"
+                   TargetType="Path"
+                   BasedOn="{StaticResource IsPathEnabled}">
+                <Setter Property="Data">
+                    <Setter.Value>
+                        <RectangleGeometry Rect="0.5,0.5,9,9"
+                                           RadiusX="0"
+                                           RadiusY="0" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="CrossPath"
+                   TargetType="Path"
+                   BasedOn="{StaticResource IsPathEnabled}">
+                <Setter Property="Data">
+                    <Setter.Value>
+                        <GeometryGroup>
+                            <LineGeometry StartPoint="0.5,0.5"
+                                          EndPoint="9.5,9.5" />
+                            <LineGeometry StartPoint="9.5,0.5"
+                                          EndPoint="0.5,9.5" />
+                        </GeometryGroup>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="MinusPath"
+                   BasedOn="{StaticResource IsPathEnabled}"
+                   TargetType="Path">
+                <Setter Property="Data">
+                    <Setter.Value>
+                        <LineGeometry StartPoint="0.5,5"
+                                      EndPoint="9.5,5" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="FramePath"
+                   BasedOn="{StaticResource IsPathEnabled}"
+                   TargetType="Path">
+                <Setter Property="Data">
+                    <Setter.Value>
+                        <RectangleGeometry Rect="0.5,0.5,9,9"
+                                           RadiusX="1"
+                                           RadiusY="1" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Border BorderBrush="Black"
             BorderThickness="1">
         <StackPanel Orientation="Vertical">
@@ -12,6 +72,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Column="0"
@@ -45,32 +106,30 @@
                         Command="{Binding KillProcessCommand}">
                     <Button.Content>
                         <Grid>
-                            <Path Fill="Red">
-                                <Path.Data>
-                                    <RectangleGeometry Rect="0.5,0.5,9,9"
-                                                       RadiusX="0"
-                                                       RadiusY="0" />
-                                </Path.Data>
-                            </Path>
+                            <Path Fill="Red"
+                                  Style="{StaticResource BackgroundPath}" />
                             <Path Stroke="White"
-                                  StrokeThickness="1">
-                                <Path.Data>
-                                    <GeometryGroup>
-                                        <LineGeometry StartPoint="0.5,0.5"
-                                                      EndPoint="9.5,9.5" />
-                                        <LineGeometry StartPoint="9.5,0.5"
-                                                      EndPoint="0.5,9.5" />
-                                    </GeometryGroup>
-                                </Path.Data>
-                            </Path>
+                                  StrokeThickness="2"
+                                  Style="{StaticResource CrossPath}" />
                             <Path Stroke="Black"
-                                  StrokeThickness="1">
-                                <Path.Data>
-                                    <RectangleGeometry Rect="0.5,0.5,9,9"
-                                                       RadiusX="1"
-                                                       RadiusY="1" />
-                                </Path.Data>
-                            </Path>
+                                  Style="{StaticResource FramePath}" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="3"
+                        Width="15"
+                        Height="15"
+                        Margin="3,0,0,0"
+                        Command="{Binding RemoveCommand}">
+                    <Button.Content>
+                        <Grid>
+                            <Path Fill="Black"
+                                  Style="{StaticResource BackgroundPath}" />
+                            <Path Stroke="White"
+                                  StrokeThickness="2"
+                                  Style="{StaticResource MinusPath}" />
+                            <Path Stroke="Black"
+                                  Style="{StaticResource FramePath}" />
                         </Grid>
                     </Button.Content>
                 </Button>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Input;
@@ -13,14 +14,13 @@ namespace TextEditorLauncher.UI.ViewModels.Controls
     public class IconViewModel : ViewModelBase, IDisposable
     {
 
-        private const string NotepadEditor = "notepad.exe";
-
         private bool _isOpened;
         private string _filePath;
         private Process _executingProcess;
 
         private ICommand _launchTextEditorCommand;
         private ICommand _killProcessCommand;
+        private ICommand _removeCommand;
 
         public bool IsOpened
         {
@@ -46,6 +46,20 @@ namespace TextEditorLauncher.UI.ViewModels.Controls
             }
         }
 
+        public string SelectedTextEditor
+        {
+            private get;
+
+            set;
+        }
+
+        public ObservableCollection<IconViewModel> Icons
+        {
+            private get;
+
+            set;
+        }
+
         public string FileName =>
             Path.GetFileName(FilePath);
 
@@ -55,6 +69,9 @@ namespace TextEditorLauncher.UI.ViewModels.Controls
         public ICommand KillProcessCommand =>
             _killProcessCommand ?? (_killProcessCommand = new RelayCommand(_ => KillProcess(), _ => IsOpened));
 
+        public ICommand RemoveCommand =>
+            _removeCommand ?? (_removeCommand = new RelayCommand(_ => Remove()));
+
         private void LaunchTextEditor()
         {
             if (!File.Exists(FilePath))
@@ -63,9 +80,9 @@ namespace TextEditorLauncher.UI.ViewModels.Controls
             }
             _executingProcess = new Process()
             {
-                EnableRaisingEvents = true,
+                EnableRaisingEvents = true
             };
-            _executingProcess.StartInfo.FileName = NotepadEditor;
+            _executingProcess.StartInfo.FileName = SelectedTextEditor;
             _executingProcess.StartInfo.Arguments = FilePath;
             _executingProcess.Exited += (sender, eventArgs) =>
             {
@@ -83,6 +100,13 @@ namespace TextEditorLauncher.UI.ViewModels.Controls
         {
             _executingProcess?.Kill();
             IsOpened = false;
+        }
+
+        private void Remove()
+        {
+            Icons.Remove(this);
+            Logger.Instance.Log(Severity.Notification, "Icon removed successfully.");
+            Dispose();
         }
 
         public void Dispose()

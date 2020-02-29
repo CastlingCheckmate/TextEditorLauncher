@@ -17,6 +17,7 @@ namespace TextEditorLauncher.UI
         {
             Logger.Instance
                 .Log(Severity.Notification, "Application execution finished.")
+                .Flush()
                 .Dispose();
         }
 
