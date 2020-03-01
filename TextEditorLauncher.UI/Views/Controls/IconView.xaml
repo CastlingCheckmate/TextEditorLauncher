@@ -103,6 +103,7 @@
                         Width="15"
                         Height="15"
                         Margin="3,0,0,0"
+                        IsEnabled="{Binding IsOpened, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Command="{Binding KillProcessCommand}">
                     <Button.Content>
                         <Grid>

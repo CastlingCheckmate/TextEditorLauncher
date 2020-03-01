@@ -37,7 +37,7 @@ namespace TextEditorLauncher.UI.Log
         {
             lock (_syncObject)
             {
-                _logFileWriter.WriteLine($"{severity.ToString()} [{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")}]: {message}");
+                _logFileWriter.WriteLine($"{severity.ToFriendlyString()} [{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")}]: {message}");
             }
             return this;
         }
@@ -65,7 +65,7 @@ namespace TextEditorLauncher.UI.Log
     internal static class SeverityExtensions
     {
 
-        public static string ToString(this Severity severity)
+        public static string ToFriendlyString(this Severity severity)
         {
             switch (severity)
             {

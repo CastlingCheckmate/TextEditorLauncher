@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 using TextEditorLauncher.UI.Log;
@@ -91,9 +92,22 @@ namespace TextEditorLauncher.UI.ViewModels.Controls
                 IsOpened = false;
                 Logger.Instance.Log(Severity.Notification, $"Text editor with file {FilePath} has been terminated.");
             };
+            try
+            {
+                _executingProcess.Start();
+            }
+            catch (Exception)
+            {
+                _executingProcess.Dispose();
+                _executingProcess = null;
+                var severity = Severity.Error;
+                var message = $"Text editor with file {FilePath} can't be started.";
+                Logger.Instance.Log(severity, message);
+                MessageBox.Show(message, severity.ToFriendlyString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             IsOpened = true;
             Logger.Instance.Log(Severity.Notification, $"Text editor with file {FilePath} started successfully.");
-            _executingProcess.Start();
         }
 
         private void KillProcess()

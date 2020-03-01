@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 using TextEditorLauncher.UI.Log;
@@ -19,6 +20,7 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
     public sealed class MainViewModel : ViewModelBase, IDisposable
     {
 
+        private string _selectedTextEditor;
         private string[] _textEditorsNames;
         private ICommand _addNewIconCommand;
         private ICommand _selectTextEditorCommand;
@@ -43,8 +45,12 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
 
         private string SelectedTextEditor
         {
+            get =>
+                _selectedTextEditor;
+
             set
             {
+                _selectedTextEditor = value;
                 foreach (var icon in Icons)
                 {
                     icon.SelectedTextEditor = value;
@@ -75,7 +81,7 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
             {
                 return;
             }
-            Icons.Add(new IconViewModel() { Icons = Icons, IsOpened = false, FilePath = openFileDialog.FileName });
+            Icons.Add(new IconViewModel() { Icons = Icons, IsOpened = false, FilePath = openFileDialog.FileName, SelectedTextEditor = SelectedTextEditor });
             Logger.Instance.Log(Severity.Notification, "Icon added successfully.");
         }
 
@@ -126,6 +132,8 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
         private void About()
         {
             Logger.Instance.Log(Severity.Notification, "About dialog called.");
+            var message = "Developed by: Ilya Irbitskiy";
+            MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void Dispose()
