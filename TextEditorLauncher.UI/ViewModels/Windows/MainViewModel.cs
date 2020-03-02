@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -79,6 +80,14 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
             };
             if (!openFileDialog.ShowDialog().Value)
             {
+                return;
+            }
+            if (Icons.Any(icon => icon.FilePath.Equals(openFileDialog.FileName)))
+            {
+                var severity = Severity.Warning;
+                var message = "File is already in icons list!";
+                Logger.Instance.Log(severity, message);
+                MessageBox.Show(message, severity.ToFriendlyString(), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             Icons.Add(new IconViewModel() { Icons = Icons, IsOpened = false, FilePath = openFileDialog.FileName, SelectedTextEditor = SelectedTextEditor });
