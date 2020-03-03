@@ -4,7 +4,8 @@ using System.Windows.Data;
 
 namespace WPF.UI.Converters
 {
-
+    
+    // конвертер из true в false, из false в true
     public sealed class BoolToInvertedBoolConverter : IValueConverter
     {
 

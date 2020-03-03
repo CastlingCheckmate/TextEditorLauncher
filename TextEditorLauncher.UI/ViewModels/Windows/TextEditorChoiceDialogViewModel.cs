@@ -18,9 +18,11 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
 
         public TextEditorChoiceDialogViewModel(string[] textEditors)
         {
+            // сохраняем массив имён текстовых редакторов из которых юзер может выбрать редактор
             TextEditors = textEditors;
         }
 
+        // массив имён текстовых редакторов
         public string[] TextEditors
         {
             get =>
@@ -33,6 +35,7 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
             }
         }
 
+        // индекс текущего выбранного имени текстового редактора из массива
         public int SelectedTextEditorIndex
         {
             get =>
@@ -45,20 +48,26 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
             }
         }
 
+        // у двух команд ниже ссылка на вьюху диалога приезжает из параметров (ищем для кнопки содержащий её контейнер типа Window)
+
+        // команда подтверждения выбора редактора
         public ICommand AcceptCommand =>
             _acceptCommand ?? (_acceptCommand = new RelayCommand(dialogView => Accept((Window)dialogView)));
 
+        // команда отмены выбора редактора
         public ICommand CancelCommand =>
             _cancelCommand ?? (_cancelCommand = new RelayCommand(dialogView => Cancel((Window)dialogView)));
 
         private void Accept(Window dialogView)
         {
+            // говорим о том что выбор был подтверждён пользователем и завершаем диалог
             dialogView.DialogResult = true;
             dialogView.Close();
         }
 
         private void Cancel(Window dialogView)
         {
+            // говорим о том что выбор не был сделан и завершаем диалог
             dialogView.DialogResult = false;
             dialogView.Close();
         }
