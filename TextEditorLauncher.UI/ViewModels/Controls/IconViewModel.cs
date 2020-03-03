@@ -77,7 +77,13 @@ namespace TextEditorLauncher.UI.ViewModels.Controls
         {
             if (!File.Exists(FilePath))
             {
-                File.Create(FilePath);
+                var message = $"File \"{FilePath}\" not exists!{Environment.NewLine}Do You want to remove it from list?";
+                var severity = Severity.Error;
+                if (MessageBox.Show(message, severity.ToString(), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    Remove();
+                }
+                return;
             }
             _executingProcess = new Process()
             {
