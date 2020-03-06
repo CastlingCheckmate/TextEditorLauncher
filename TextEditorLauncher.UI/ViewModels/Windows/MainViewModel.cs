@@ -126,7 +126,7 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
                     var process = default(Process);
                     try
                     {
-                        process = Process.Start(maybeTextEditorName, Path.Combine(Environment.CurrentDirectory, Logger.LogFileName));
+                        process = Process.Start(maybeTextEditorName, Logger.LogFilePath);
                     }
                     catch (FileNotFoundException)
                     {
@@ -151,8 +151,7 @@ namespace TextEditorLauncher.UI.ViewModels.Windows
             // создаём диалог и задаём ему DataContext созданной вьюмоделью
             var dialogView = new TextEditorChoiceDialog()
             {
-                DataContext = dialogViewModel,
-                DialogResult = false
+                DataContext = dialogViewModel
             };
             // при нажатии кнопки Cancel или закрытии окна через крестик, ничего не делаем
             if (!dialogView.ShowDialog().Value)
